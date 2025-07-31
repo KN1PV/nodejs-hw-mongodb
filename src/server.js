@@ -12,18 +12,7 @@ export const setupServer = () => {
 
     app.use([cors(), pino()])
 
-    app.use((req, res) => {
-        res.status(404).json({
-            message: "Route not found",
-            status: 404,
-        })
-    })
-
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
-
-    app.get('/contacts', async (req, res) => {
+        app.get('/contacts', async (req, res) => {
         const users = await getUsers();
 
         res.json({
@@ -34,7 +23,7 @@ export const setupServer = () => {
     });
 
     app.get('/contacts/:contactId', async (req, res) => {
-        const { userId } = res.params;
+        const { userId } = req.params;
         const user = await getUserById(userId);
 
         if (!user) {
@@ -51,5 +40,16 @@ export const setupServer = () => {
                 user,
             }
         });
+    });
+
+    app.use((req, res) => {
+        res.status(404).json({
+            message: "Route not found",
+            status: 404,
+        })
+    })
+
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
     });
 }
