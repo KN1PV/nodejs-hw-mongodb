@@ -19,6 +19,16 @@
   "homepage": "https://github.com/KN1PV/nodejs-hw-mongodb#readme",
   "description": "",
   "devDependencies": {
+    "@eslint/js": "^9.32.0",
+    "eslint": "^9.32.0",
+    "globals": "^16.3.0",
     "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mongoose": "^8.17.0",
+    "pino-http": "^10.5.0"
   }
 }
