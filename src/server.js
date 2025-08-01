@@ -3,7 +3,7 @@ import cors from 'cors'
 import pino from 'pino-http'
 import { getEnvVar } from './utils/getEnvVar.js';
 import { ENV_VARS } from './constants/envVars.js';
-import { getUsers, getUserById } from './services/contacts.js';
+import { getContacts, getContactById } from './services/contacts.js';
 
 
 export const setupServer = () => {
@@ -12,21 +12,21 @@ export const setupServer = () => {
 
     app.use([cors(), pino()])
 
-        app.get('/contacts', async (req, res) => {
-        const users = await getUsers();
+    app.get('/contacts', async (req, res) => {
+        const contacts = await getContacts();
 
         res.json({
             status: 200,
             message: "Successfully found contacts!",
-            data: users,
+            data: contacts,
         });
     });
 
     app.get('/contacts/:contactId', async (req, res) => {
-        const { userId } = req.params;
-        const user = await getUserById(userId);
+        const { contactId } = req.params;
+        const contact = await getContactById(contactId);
 
-        if (!user) {
+        if (!contact) {
             return res.status(404).json({
             status: 404,
             message: 'Contact not found',
@@ -35,9 +35,9 @@ export const setupServer = () => {
 
         res.json({
             status: 200,
-            message: "Successfully found contact with id {contactId}!",
+            message: `Successfully found contact with id ${contactId}!`,
             data: {
-                user,
+                contact,
             }
         });
     });

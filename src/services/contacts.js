@@ -1,12 +1,12 @@
-import { User } from "../db/models/user.js"
+import { Contact } from "../db/models/contact.js"
 
-export const getUsers = async () => {
-    const users = await User.find();
-    return users;
+export const getContacts = async () => {
+    const contacts = await Contact.find();
+    return contacts;
 };
 
-export const getUserById = async (userId) => {
-    const users = await User.findById(userId);
-    return users;
+export const getContactById = async (userId) => {
+    const contacts = await Contact.findById(userId);
+    return contacts;
 }
 
