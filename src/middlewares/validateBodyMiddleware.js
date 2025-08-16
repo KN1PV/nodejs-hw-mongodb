@@ -10,7 +10,10 @@ export const validateBody = (schema) => {
       });
       next();
     } catch (err) {
-      next(createHttpError(400, err.details));
+      next(createHttpError(400, {
+        message: 'Validation error',
+        errors: err.details,
+      }));
     }
   };
 };
