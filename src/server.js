@@ -1,32 +1,33 @@
-import express, { json } from 'express'
-import cors from 'cors'
-import pino from 'pino-http'
+import express, { json } from 'express';
+import cors from 'cors';
+import pino from 'pino-http';
 import { getEnvVar } from './utils/getEnvVar.js';
 import { ENV_VARS } from './constants/envVars.js';
 import router from './routers/index.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import cookieParser from 'cookie-parser';
 
 export const setupServer = () => {
-    const app = express();
-    const PORT = getEnvVar(ENV_VARS.PORT, 3000)
+  const app = express();
+  const PORT = getEnvVar(ENV_VARS.PORT, 3000);
 
-    app.use([cors(), pino()])
-    app.use(json());
+  app.use([cors(), pino(), cookieParser()]);
+  app.use(json());
 
-    app.use(router);
+  app.use(router);
 
-    app.use(notFoundHandler);
-    app.use(errorHandler);
+  app.use(notFoundHandler);
+  app.use(errorHandler);
 
-    app.use((req, res) => {
-        res.status(404).json({
-            message: "Route not found",
-            status: 404,
-        })
-    })
-
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
+  app.use((req, res) => {
+    res.status(404).json({
+      message: 'Route not found',
+      status: 404,
     });
-}
+  });
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+};

@@ -13,8 +13,10 @@ import {
   createContactSchema,
   updateContactSchema,
 } from '../validation/contact.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 const contactRouter = Router();
+contactRouter.use(authenticate);
 
 contactRouter.get('/contacts', ctrlWrapper(getContactsController));
 
