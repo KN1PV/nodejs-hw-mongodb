@@ -7,6 +7,7 @@ import router from './routers/index.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
+import { UPLOAD_DIR } from './constants/path.js';
 
 export const setupServer = () => {
   const app = express();
@@ -16,6 +17,7 @@ export const setupServer = () => {
   app.use(json());
 
   app.use(router);
+  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.use(notFoundHandler);
   app.use(errorHandler);
