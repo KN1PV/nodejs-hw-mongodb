@@ -50,12 +50,15 @@ export const createContact = async (payload) => {
   return contact;
 };
 
-export const patchContact = async (contactId, payload, userId) => {
+export const patchContact = async (contactId, userId, updates) => {
   const contact = await Contact.findOneAndUpdate(
     { _id: contactId, userId },
-    payload,
+    updates,
     { new: true },
   );
+  if (!contact) {
+    throw createHttpError(404, 'Contact not found');
+  }
   return contact;
 };
 
