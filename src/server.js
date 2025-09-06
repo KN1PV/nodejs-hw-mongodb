@@ -8,6 +8,7 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
 import { UPLOAD_DIR } from './constants/path.js';
+import { setupSwagger } from './middlewares/setupSwagger.js';
 
 export const setupServer = () => {
   const app = express();
@@ -15,6 +16,8 @@ export const setupServer = () => {
 
   app.use([cors(), pino(), cookieParser()]);
   app.use(json());
+
+  app.use('/api-docs', setupSwagger());
 
   app.use(router);
   app.use('/uploads', express.static(UPLOAD_DIR));
