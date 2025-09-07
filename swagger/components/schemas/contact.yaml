@@ -5,7 +5,6 @@ required:
   - phoneNumber
   - isFavourite
   - contactType
-  - userId
 properties:
   id:
     type: string
@@ -35,7 +34,3 @@ properties:
     description: "Contact's type"
     enum: [work, home, personal]
     default: personal
-  userId:
-    type: string
-    description: "Contact's parent id"
-    example: 65e4decdd286b30065d54af9

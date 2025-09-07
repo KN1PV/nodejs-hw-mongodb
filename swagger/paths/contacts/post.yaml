@@ -16,7 +16,6 @@ requestBody:
           - phoneNumber
           - email
           - contactType
-          - userId
         properties:
           name:
             type: string
@@ -35,9 +34,6 @@ requestBody:
             type: string
             enum: [work, home, personal]
             example: work
-          userId:
-            type: string
-            example: 65e4decdd286b30065d54af9
           photo:
             type: string
             format: binary
